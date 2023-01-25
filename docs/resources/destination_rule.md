@@ -43,8 +43,8 @@ resource "acl_destination_rule" "test_app" {
   instance = tsuru_service_instance.acl.name
 
   rpaas {
-    service_name = "<< MY-RPAAS-SERVICE >>"
-    instance     = "<< MY-RPAAS-INSTANCE >>"
+    service_name = "<< DESTINATION-RPAAS-SERVICE >>"
+    instance     = "<< DESTINATION-RPAAS-INSTANCE >>"
   }
 }
 
