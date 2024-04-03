@@ -4,7 +4,8 @@ import (
 	"context"
 
 	"github.com/tsuru/acl-api/api/types"
-	tsuruCmd "github.com/tsuru/tsuru/cmd"
+	tsuruclient "github.com/tsuru/go-tsuruclient/pkg/client"
+	"github.com/tsuru/go-tsuruclient/pkg/config"
 )
 
 type Client interface {
@@ -20,7 +21,7 @@ type clientImpl struct {
 
 func NewClient(ctx context.Context, host, token string) (Client, error) {
 	if len(host) == 0 {
-		target, err := tsuruCmd.GetTarget()
+		target, err := config.GetTarget()
 		if err != nil {
 			return nil, err
 		}
@@ -28,7 +29,7 @@ func NewClient(ctx context.Context, host, token string) (Client, error) {
 	}
 
 	if len(token) == 0 {
-		tsuruToken, err := tsuruCmd.ReadToken()
+		tsuruToken, err := readToken()
 		if err != nil {
 			return nil, err
 		}
@@ -39,4 +40,12 @@ func NewClient(ctx context.Context, host, token string) (Client, error) {
 		Host:  host,
 		token: token,
 	}, nil
+}
+
+func readToken() (string, error) {
+	_, tokenProvider, err := tsuruclient.RoundTripperAndTokenProvider()
+	if err != nil {
+		return "", err
+	}
+	return tokenProvider.Token()
 }
