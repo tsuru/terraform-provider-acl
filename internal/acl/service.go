@@ -98,7 +98,7 @@ func ParseResourceID(id string) (*ParsedPrimaryID, error) {
 
 	idParts := ParseIDParts(id)
 	if len(idParts) < 3 {
-		return nil, errors.New("Parse Resource ID invalid")
+		return nil, errors.New("Parse Resource ID invalid, the format must be <SERVICE>::<INSTANCE>::<RULE_ID>")
 	}
 
 	if len(idParts) == 3 {
