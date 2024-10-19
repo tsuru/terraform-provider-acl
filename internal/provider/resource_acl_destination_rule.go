@@ -164,10 +164,6 @@ func resourceACLDestinationRuleCreate(ctx context.Context, d *schema.ResourceDat
 			return resource.NonRetryableError(err)
 		}
 
-		if err != nil {
-			return resource.NonRetryableError(err)
-		}
-
 		d.SetId(rule.RuleID)
 		return nil
 	})
