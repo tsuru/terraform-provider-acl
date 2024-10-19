@@ -106,25 +106,6 @@ func parseTsuruApp(d *schema.ResourceData) *types.TsuruAppRule {
 	}
 }
 
-func tsuruSchema(baseName string) *schema.Resource {
-	return &schema.Resource{
-		Schema: map[string]*schema.Schema{
-			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				ExactlyOneOf: []string{baseName + ".0.pool"},
-			},
-			"pool": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				ExactlyOneOf: []string{baseName + ".0.name"},
-			},
-		},
-	}
-}
-
 func rpaasSchema(baseName string) *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
