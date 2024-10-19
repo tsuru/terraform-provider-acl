@@ -130,12 +130,14 @@ func rpaasSchema(baseName string) *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"service_name": {
 				Type:         schema.TypeString,
+				Description:  "Destination rpaas service name (ex: rpaasv2-be, rpaasv2-fe)",
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{baseName + ".0.service_name"},
 			},
 			"instance": {
 				Type:         schema.TypeString,
+				Description:  "Destination rpaas instance name",
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{baseName + ".0.instance"},
