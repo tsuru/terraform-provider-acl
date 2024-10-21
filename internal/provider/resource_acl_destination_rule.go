@@ -45,6 +45,7 @@ func resourceACLDestinationRule() *schema.Resource {
 				Type:         schema.TypeString,
 				ExactlyOneOf: oneDestination,
 				ValidateFunc: validation.IsCIDR,
+				Description:  "Destination IP address",
 			},
 
 			"dns": {
@@ -52,6 +53,7 @@ func resourceACLDestinationRule() *schema.Resource {
 				ForceNew:     true,
 				Type:         schema.TypeString,
 				ExactlyOneOf: oneDestination,
+				Description:  "Destination fully qualified domain name (FQDN)",
 			},
 
 			"app": {
@@ -59,6 +61,7 @@ func resourceACLDestinationRule() *schema.Resource {
 				ForceNew:     true,
 				Type:         schema.TypeString,
 				ExactlyOneOf: oneDestination,
+				Description:  "Destination tsuru app name",
 			},
 
 			"pool": {
@@ -66,6 +69,7 @@ func resourceACLDestinationRule() *schema.Resource {
 				ForceNew:     true,
 				Type:         schema.TypeString,
 				ExactlyOneOf: oneDestination,
+				Description:  "Tsuru Pool name",
 			},
 
 			"rpaas": {
@@ -76,23 +80,27 @@ func resourceACLDestinationRule() *schema.Resource {
 				MinItems:     1,
 				ExactlyOneOf: oneDestination,
 				Elem:         rpaasSchema("rpaas"),
+				Description:  "Destination tsuru rpaas name",
 			},
 
 			"port": {
 				Optional:      true,
 				ForceNew:      true,
 				Type:          schema.TypeList,
+				Description:   "Destination port and protocol list",
 				ConflictsWith: []string{"app", "rpaas"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"protocol": {
 							Type:         schema.TypeString,
+							Description:  "Procotol name (ex: TCP, UDP, tcp, udp...)",
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice([]string{"TCP", "UDP", "tcp", "udp"}, false),
 						},
 						"number": {
 							Type:         schema.TypeInt,
+							Description:  "Port number",
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsPortNumber,
@@ -153,10 +161,6 @@ func resourceACLDestinationRuleCreate(ctx context.Context, d *schema.ResourceDat
 				Detail:   err.Error(),
 			})
 
-			return resource.NonRetryableError(err)
-		}
-
-		if err != nil {
 			return resource.NonRetryableError(err)
 		}
 
