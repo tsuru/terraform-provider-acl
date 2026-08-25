@@ -76,7 +76,8 @@ func TestAccResourceDestinationRuleApp(t *testing.T) {
 		t.Errorf("methods=%s, path=%s, err=%s", c.Request().Method, c.Path(), err.Error())
 	}
 	server := httptest.NewServer(fakeServer)
-	os.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TOKEN", "test-token")
 
 	resourceName := "acl_destination_rule.rule"
 	resource.Test(t, resource.TestCase{
@@ -144,7 +145,8 @@ func TestAccImportRuleApp(t *testing.T) {
 		t.Errorf("methods=%s, path=%s, err=%s", c.Request().Method, c.Path(), err.Error())
 	}
 	server := httptest.NewServer(fakeServer)
-	os.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TOKEN", "test-token")
 
 	resourceName := "acl_destination_rule.rule"
 	config := `
@@ -232,7 +234,8 @@ func TestAccResourceDestinationRuleDNS(t *testing.T) {
 		t.Errorf("methods=%s, path=%s, err=%s", c.Request().Method, c.Path(), err.Error())
 	}
 	server := httptest.NewServer(fakeServer)
-	os.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TOKEN", "test-token")
 
 	resourceName := "acl_destination_rule.rule"
 	resource.Test(t, resource.TestCase{
@@ -323,7 +326,8 @@ func TestAccResourceDestinationRuleIP(t *testing.T) {
 		t.Errorf("methods=%s, path=%s, err=%s", c.Request().Method, c.Path(), err.Error())
 	}
 	server := httptest.NewServer(fakeServer)
-	os.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TOKEN", "test-token")
 
 	resourceName := "acl_destination_rule.rule"
 	resource.Test(t, resource.TestCase{
@@ -405,7 +409,8 @@ func TestAccResourceDestinationRPaaS(t *testing.T) {
 		t.Errorf("methods=%s, path=%s, err=%s", c.Request().Method, c.Path(), err.Error())
 	}
 	server := httptest.NewServer(fakeServer)
-	os.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TARGET", server.URL)
+	t.Setenv("TSURU_TOKEN", "test-token")
 
 	resourceName := "acl_destination_rule.rule"
 	resource.Test(t, resource.TestCase{
